@@ -1,0 +1,87 @@
+{
+  "artifact": {
+    "GlassEngine": {
+      "name": "GLASS ENGINE",
+      "description": "At the start of the turn, gain 1 <c=status>EVADE</c>.\n<c=downside>Breaks if you take hull damage.</c>"
+    },
+    "GlassShield": {
+      "name": "GLASS SHIELD",
+      "description": "At the start of the turn, gain 1 <c=status>TEMP SHIELD</c>.\n<c=downside>Breaks if you take hull damage.</c>"
+    },
+    "Painter": {
+      "name": "PAINTER'S PALETTE",
+      "description": "When you play a non-colorless card, gain a <c=status>PIGMENT</c> of that color, up to three."
+    },
+    "Bumpers": {
+      "name": "SPIKED BUMPERS",
+      "description": "Add 1 <c=card>Ram</c> to your deck."
+    },
+    "Prism": {
+      "name": "COLORFUL CRYSTAL",
+      "description": "Add 1 extra card reward, it's always from characters not in your crew."
+    },
+    "Printer": {
+      "name": "CARD PRINTER",
+      "description": "At combat start, add a <c=card>Blank Card</c> to your hand."
+    },
+    "PingPong": {
+      "name": "PING PONG ARMOR",
+      "description": "On pickup, your <c=part>cannon</c> gains <c=parttrait>armor</c>. When ANY <c=parttrait>armored</c> part is hit, the hit then bounces randomly back to the attacker."
+    },
+    "Recycler": {
+      "name": "RECYCLING PROTOCOL",
+      "description": "The first card you play each turn is placed back on top of your draw pile."
+    }
+  },
+  "glossary": {
+    "Pigment": {
+      "name": "PIGMENT",
+      "description": "Add an additional effect to the next colorless card you play, based on the pigment's <c=peri>C</c><c=dizzy>O</c><c=riggs>L</c><c=eunice>O</c><c=goat>R</c>.",
+      "peri": "<c=peri>PERI PIGMENT</c>\nYour next colorless card also attacks <c=value>{0}</c> times for 0 damage.",
+      "dizzy": "<c=dizzy>DIZZY PIGMENT</c>\nYour next colorless card also grants you <c=value>{0}</c> <c=status>TEMP SHIELD</c>.",
+      "riggs": "<c=riggs>RIGGS PIGMENT</c>\nYour next colorless card also moves you randomly by <c=value>{0}</c> space.",
+      "drake": "<c=eunice>DRAKE PIGMENT</c>\nYour next colorless card also applies <c=value>{0}</c> <c=heat>heat</c> to the enemy.",
+      "max": "<c=hacker>MAX PIGMENT</c>\nYour next colorless card also draws <c=value>{0}</c> cards.",
+      "isaac": "<c=goat>ISAAC PIGMENT</c>\nYour next colorless card also grants you <c=value>{0}</c> droneshift.",
+      "books": "<c=shard>BOOKS PIGMENT</c>\nYour next colorless card also grants you <c=value>{0}</c> <c=status>SHARD</c>.",
+      "noone": "<c=afafaf>UNKNOWN PIGMENT</c>\nYour next colorless card also grants you <c=value>{0}</c> <c=status>ENERGY FRAGMENT</c>."
+    },
+    "Ramm": {
+      "name": "RAM",
+      "description": "Rapidly ram into the enemy ship, destroying any midrow object in your path."
+    }
+  },
+  "ship": {
+    "Rail": {
+      "name": "Iron Express",
+      "description": "A clunky ship featuring a rail mounted cannon, also capable of acting as a shield by rotating on its axis."
+    }
+  },
+  "status": {
+    "ElectricCharge": {
+      "name": "ELECTRIC CHARGE",
+      "description": "Add {0} damage to your next attack card.\n<c=downside>Decreases by 1 when hit.</c>"
+    }
+  },
+  "card": {
+    "BumpersRamm": {
+      "name": "Ram"
+    },
+    "BlankCard": {
+      "name": "Blank Card",
+      "description": "Create a perm copy of a card in your hand, then <c=cardtrait>exhaust</c> it."
+    }
+  },
+  "choice": {
+    "Shop": {
+      "RepairGlass": "Repair all broken glass artifacts"
+    }
+  },
+  "event": {
+    "ShopRepairGlass": {
+      "A": "All new !",
+      "B": "Be careful next time !",
+      "C": "Don't break it again !"
+    }
+  }
+}
