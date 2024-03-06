@@ -35,7 +35,6 @@ namespace APurpleApple.GenericArtifacts
 
         public override void OnPlayerPlayCard(int energyCost, Deck deck, Card card, State state, Combat combat, int handPosition, int handCount)
         {
-
             if (enabled)
             {
                 combat.Queue(new ARecycleCard() { card = card });

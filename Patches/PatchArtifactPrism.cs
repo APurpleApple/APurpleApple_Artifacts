@@ -16,6 +16,7 @@ namespace APurpleApple.GenericArtifacts.HarmonyPatches
         {
             if (__2.HasValue || __7 || __9 || !__0.EnumerateAllArtifacts().Any((a) => a is ArtifactPrism)) return;
 
+
             List<Deck> list = __0.storyVars.GetUnlockedChars().Where((d) => !__0.characters.Any((Character ch) => ch.deckType == d)).ToList();
 
             Deck foundCharacter = list.Random(__0.rngCardOfferings);
@@ -52,6 +53,7 @@ namespace APurpleApple.GenericArtifacts.HarmonyPatches
                     card.drawAnim = 1.0;
                     card.upgrade = CardReward.GetUpgrade(__0.rngCardOfferings, __0.map, card, (__0.GetDifficulty() >= 1) ? 0.5 : 1.0, __5);
                     card.flipAnim = 1.0;
+                    __result.RemoveAt(__result.Count - 1);
                     __result.Add(card);
                 }
             }

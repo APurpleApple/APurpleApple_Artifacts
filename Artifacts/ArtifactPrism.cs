@@ -25,7 +25,7 @@ namespace APurpleApple.GenericArtifacts
                 Meta = new()
                 {
                     owner = Deck.colorless,
-                    pools = [ArtifactPool.Boss],
+                    pools = [ArtifactPool.Common],
                     unremovable = false,
                 },
                 Sprite = PMod.sprites["ArtifactPrism"].Sprite,

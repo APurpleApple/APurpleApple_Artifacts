@@ -18,7 +18,7 @@
     },
     "Prism": {
       "name": "COLORFUL CRYSTAL",
-      "description": "Add 1 extra card reward, it's always from characters not in your crew."
+      "description": "Replace 1 of your card reward by a card from a character that is not in your crew."
     },
     "Printer": {
       "name": "CARD PRINTER",
@@ -69,7 +69,7 @@
     },
     "BlankCard": {
       "name": "Blank Card",
-      "description": "Create a perm copy of a card in your hand, then <c=cardtrait>exhaust</c> it."
+      "description": "Create an exact copy of a card in your hand, then <c=cardtrait>exhaust</c> it."
     }
   },
   "choice": {

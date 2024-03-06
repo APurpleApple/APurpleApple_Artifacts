@@ -12,6 +12,7 @@ namespace APurpleApple.GenericArtifacts.CardActions
         public override void Begin(G g, State s, Combat c)
         {
             if (card == null) return;
+            if (!c.discard.Contains(card)) return;
 
             s.RemoveCardFromWhereverItIs(card.uuid);
             s.SendCardToDeck(card, true);
