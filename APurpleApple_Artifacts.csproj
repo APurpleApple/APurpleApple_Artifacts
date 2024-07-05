@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <RootNamespace>APurpleApple.GenericArtifacts</RootNamespace>
-        <Version>1.0.1</Version>
+        <Version>1.0.2</Version>
 		<IsLegacyMod>false</IsLegacyMod>
         <IncludedModProjectPaths>i18n;assets</IncludedModProjectPaths>
         <TargetFramework>net8.0</TargetFramework>
@@ -27,7 +27,6 @@
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Interfaces\" />
 	  <Folder Include="Parts\" />
 	  <Folder Include="Sprites\Artifacts\" />
 	  <Folder Include="Sprites\Cards\" />

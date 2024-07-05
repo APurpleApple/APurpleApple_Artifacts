@@ -64,6 +64,11 @@ public sealed class PMod : SimpleMod
         CustomTTGlossary.ApplyPatches(harmony);
     }
 
+    public override object? GetApi(IModManifest requestingMod)
+    {
+        return new ApiImplementation();
+    }
+
     public PMod(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
     {
         Instance = this;
@@ -111,7 +116,13 @@ public sealed class PMod : SimpleMod
         foreach (var artifactType in Registered_Artifact_Types)
             AccessTools.DeclaredMethod(artifactType, nameof(IModArtifact.Register))?.Invoke(null, [helper]);
 
-        
+        helper.Events.OnModLoadPhaseFinished += (object? sender, ModLoadPhase e) => {
+            if (e == ModLoadPhase.AfterDbInit)
+            {
+                foreach (var artifactType in Registered_Artifact_Types)
+                    AccessTools.DeclaredMethod(artifactType, nameof(IModArtifact.AfterDBInit))?.Invoke(null, [helper]);
+            }
+        };
     }
 
 }

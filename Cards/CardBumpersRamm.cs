@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using APurpleApple.GenericArtifacts.CardActions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace APurpleApple.GenericArtifacts;
 
@@ -18,7 +19,7 @@ internal sealed class CardBumpersRamm : Card, IModCard
             {
                 deck = PMod.decks["Ramm"].Deck,
                 rarity = Rarity.common,
-                upgradesTo = [],
+                upgradesTo = [Upgrade.A, Upgrade.B],
                 dontOffer = true
             },
             Art = PMod.sprites["CardRamm"].Sprite,
@@ -30,7 +31,21 @@ internal sealed class CardBumpersRamm : Card, IModCard
         var list = new List<CardAction>();
 
         list.Add(new ARamAnim());
-        list.Add(new ARamAttack() { hurtAmount = 3});
+        switch (this.upgrade)
+        {
+            case Upgrade.None:
+                list.Add(new ARamAttack() { hurtAmount = 3 });
+                break;
+
+            case Upgrade.A:
+                list.Add(new AMove() { dir = -1, targetPlayer = true });
+                list.Add(new ARamAttack() { hurtAmount = 2 });
+                break;
+
+            case Upgrade.B:
+                list.Add(new ARamAttack() { hurtAmount = 1 });
+                break;
+        }
         return list;
     }
 
@@ -44,11 +59,13 @@ internal sealed class CardBumpersRamm : Card, IModCard
                 break;
 
             case Upgrade.A:
-                data.cost = 0;
+                data.cost = 1;
+                data.infinite = true;
                 break;
 
             case Upgrade.B:
-                data.cost = 1;
+                data.cost = 0;
+                data.exhaust = true;
                 break;
         }
         return data;

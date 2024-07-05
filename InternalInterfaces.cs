@@ -10,4 +10,5 @@ internal interface IModCard
 internal interface IModArtifact
 {
     static abstract void Register(IModHelper helper);
+    static virtual void AfterDBInit(IModHelper helper) { }
 }

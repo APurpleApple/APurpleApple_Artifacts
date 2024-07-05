@@ -12,16 +12,16 @@ namespace APurpleApple.GenericArtifacts.CardActions
     {
         public int hurtAmount;
         public bool targetPlayer;
-        
+
         public override void Begin(G g, State s, Combat c)
         {
             timer = 0;
-            
-            Ship ship = this.targetPlayer ? s.ship : c.otherShip;
+
+            Ship ship = this.targetPlayer ? c.otherShip : s.ship;
             if (ship == null)
                 return;
 
-            Ship target = this.targetPlayer ? c.otherShip : s.ship;
+            Ship target = this.targetPlayer ? s.ship : c.otherShip;
 
             bool hit = false;
             for (var i = 0; i < ship.parts.Count; i++)
@@ -54,13 +54,13 @@ namespace APurpleApple.GenericArtifacts.CardActions
             }
 
             if (!hit) { return; }
-            
 
-            ship.NormalDamage(s, c, this.hurtAmount, null);
 
-            EffectSpawner.ShipOverheating(g, ship.GetShipRect());
+            target.NormalDamage(s, c, this.hurtAmount, null);
+
+            EffectSpawner.ShipOverheating(g, target.GetShipRect());
             Audio.Play(new GUID?(FSPRO.Event.Hits_HitHurt));
-            ship.shake++;
+            target.shake++;
         }
         public override Icon? GetIcon(State s)
         {
