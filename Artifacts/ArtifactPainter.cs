@@ -2,6 +2,7 @@
 using FMOD;
 using Microsoft.Xna.Framework;
 using Nickel;
+using OneOf.Types;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -74,6 +75,10 @@ namespace APurpleApple.GenericArtifacts
             }
             if (pigmentCount > 0 && color == Deck.colorless) 
             {
+                foreach (Deck pigment in colors)
+                {
+                    combat.Queue(GetColorAction(state, pigment));
+                }
                 Pulse();
                 colors.Clear();
             }

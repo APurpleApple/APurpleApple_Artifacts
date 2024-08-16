@@ -100,6 +100,7 @@ namespace APurpleApple.GenericArtifacts.CardActions
                 dmg = target.NormalDamage(s, c, damage, raycastResult.worldX, piercing);
                 Part? partAtWorldX = target.GetPartAtWorldX(raycastResult.worldX);
 
+                /*
                 if (partAtWorldX != null && partAtWorldX.GetDamageModifier() == PDamMod.armor)
                 {
                     ABounceAttack attack = new ABounceAttack() {
@@ -119,7 +120,7 @@ namespace APurpleApple.GenericArtifacts.CardActions
                         paybackCounter = paybackCounter,
                     };
                     c.QueueImmediate(attack);
-                }
+                }*/
 
                 if (partAtWorldX != null && partAtWorldX.stunModifier == PStunMod.stunnable)
                 {

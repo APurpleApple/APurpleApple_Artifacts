@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using APurpleApple.GenericArtifacts.Cards;
+using APurpleApple.GenericArtifacts.CardActions;
 
 namespace APurpleApple.GenericArtifacts
 {
@@ -15,6 +16,7 @@ namespace APurpleApple.GenericArtifacts
 
     internal class ArtifactPrinter : Artifact, IModArtifact
     {
+        public bool isEnabled = true;
         public static void Register(IModHelper helper)
         {
             Type type = MethodBase.GetCurrentMethod()!.DeclaringType!;
@@ -33,16 +35,30 @@ namespace APurpleApple.GenericArtifacts
             });
         }
 
-        public override void OnCombatStart(State state, Combat combat)
+        public override void OnPlayerPlayCard(int energyCost, Deck deck, Card card, State state, Combat combat, int handPosition, int handCount)
         {
-            combat.Queue(new AAddCard() { card = new CardPrinter(), amount = 1, artifactPulse = this.Key(), destination = CardDestination.Hand });
+            if (isEnabled)
+            {
+                combat.Queue(new ACopyCardTo() { destination = CardDestination.Exhaust, artifactPulse = Key(), selectedCard = card } );
+                isEnabled = false;
+            }
         }
 
-        public override List<Tooltip>? GetExtraTooltips()
+        public override Spr GetSprite()
         {
-            List<Tooltip> list = new List<Tooltip>();
-            list.Add(new TTCard() { card = new CardPrinter() });
-            return list;
+            if (!isEnabled)
+            {
+                return PMod.sprites["ArtifactPrinterOff"].Sprite;
+            }
+            else
+            {
+                return PMod.sprites["ArtifactPrinter"].Sprite;
+            }
+        }
+
+        public override void OnCombatEnd(State state)
+        {
+            isEnabled = true;
         }
     }
 }

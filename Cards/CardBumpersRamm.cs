@@ -30,20 +30,19 @@ internal sealed class CardBumpersRamm : Card, IModCard
     {
         var list = new List<CardAction>();
 
-        list.Add(new ARamAnim());
         switch (this.upgrade)
         {
             case Upgrade.None:
-                list.Add(new ARamAttack() { hurtAmount = 3 });
+                list.Add(new ARamAnim() { hurtAmount = 1 });
                 break;
 
             case Upgrade.A:
-                list.Add(new AMove() { dir = -1, targetPlayer = true });
-                list.Add(new ARamAttack() { hurtAmount = 2 });
+                list.Add(new AMove() { dir = 2, targetPlayer = true });
+                list.Add(new ARamAnim() { hurtAmount = 1 });
                 break;
 
             case Upgrade.B:
-                list.Add(new ARamAttack() { hurtAmount = 1 });
+                list.Add(new ARamAnim() { hurtAmount = 2 });
                 break;
         }
         return list;
@@ -56,15 +55,18 @@ internal sealed class CardBumpersRamm : Card, IModCard
         {
             case Upgrade.None:
                 data.cost = 1;
+                data.exhaust = true;
                 break;
 
             case Upgrade.A:
                 data.cost = 1;
-                data.infinite = true;
+                data.flippable = true;
+                data.exhaust = true;
                 break;
 
             case Upgrade.B:
-                data.cost = 0;
+                data.cost = 2;
+                data.retain = true;
                 data.exhaust = true;
                 break;
         }

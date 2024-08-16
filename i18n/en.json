@@ -22,15 +22,19 @@
     },
     "Printer": {
       "name": "CARD PRINTER",
-      "description": "At combat start, add a <c=card>Blank Card</c> to your hand."
+      "description": "Create an exact <c=cardtrait>exhausted</c> copy of the first card you play on the first turn each combat."
     },
     "PingPong": {
       "name": "PING PONG ARMOR",
-      "description": "On pickup, your <c=part>cannon</c> gains <c=parttrait>armor</c>. When ANY <c=parttrait>armored</c> part is hit, the hit then bounces randomly back to the attacker."
+      "description": "On pickup, your <c=part>cannon</c> gains <c=parttrait>armor</c>. When ANY <c=parttrait>armored</c> part is hit, the hit then bounces once randomly back to the attacker."
     },
     "Recycler": {
       "name": "RECYCLING PROTOCOL",
       "description": "The first card you play each turn is placed back on top of your draw pile."
+    },
+    "SpinnyTop": {
+      "name": "SPINNY TOP",
+      "description": "+1 Energy.\nWhenever you play a non-<c=cardtrait>temp</c> card from a member of the crew, <c=downside>it is then removed from your deck</c> and replaced in hand with a random card from their deck, with the same upgrade."
     }
   },
   "glossary": {
@@ -48,7 +52,7 @@
     },
     "Ramm": {
       "name": "RAM",
-      "description": "Rapidly ram into the enemy ship, destroying any midrow object in your path."
+      "description": "Ram into the enemy ship, destroying any <c=midrow>midrow object</c> in your path and dealing {0} to every part hit."
     }
   },
   "ship": {

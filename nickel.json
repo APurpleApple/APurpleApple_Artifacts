@@ -1,6 +1,12 @@
 {
   "UniqueName": "APurpleApple.GenericArtifacts",
-  "Version": "1.0.2",
+  "Version": "1.0.3",
   "RequiredApiVersion": "0.1.0",
-  "EntryPointAssembly": "APurpleApple_Artifacts.dll"
+  "EntryPointAssembly": "APurpleApple_Artifacts.dll",
+
+  "UpdateChecks": {
+    "NexusMods": {
+      "ID": 16
+    }
+  }
 }

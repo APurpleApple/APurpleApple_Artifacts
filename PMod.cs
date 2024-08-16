@@ -37,7 +37,7 @@ public sealed class PMod : SimpleMod
     };
     internal static IReadOnlyList<Type> Registered_Card_Types { get; } = [
         typeof(CardBumpersRamm),
-        typeof(CardPrinter)
+        //typeof(CardPrinter)
     ];
 
     internal static IReadOnlyList<Type> Registered_Artifact_Types { get; } = [
@@ -48,7 +48,8 @@ public sealed class PMod : SimpleMod
         typeof(ArtifactPrism),
         typeof(ArtifactPrinter),
         typeof(ArtifactPingPong),
-        typeof(ArtifactRecycler)
+        typeof(ArtifactRecycler),
+        typeof(ArtifactSpinnyTop)
     ];
 
     public void RegisterSprite(string key, string fileName, IPluginPackage<IModManifest> package)
@@ -92,9 +93,11 @@ public sealed class PMod : SimpleMod
         RegisterSprite("ArtifactRecycler", "Artifacts/artifact_recycler.png", package);
         RegisterSprite("ArtifactRecyclerOff", "Artifacts/artifact_recycler_off.png", package);
         RegisterSprite("ArtifactPrinter", "Artifacts/artifact_printer.png", package);
+        RegisterSprite("ArtifactPrinterOff", "Artifacts/artifact_printer_off.png", package);
         RegisterSprite("ArtifactPingPong", "Artifacts/artifact_pingpongarmor.png", package);
         RegisterSprite("ArtifactBumper", "Artifacts/SpikeBumpers.png", package);
         RegisterSprite("ArtifactPrism", "Artifacts/artifact_colorfulCrystal.png", package);
+        RegisterSprite("ArtifactSpinnyTop", "Artifacts/artifact_spinnytop.png", package);
 
         RegisterSprite("CardPrinter", "Cards/card_printer.png", package);
         RegisterSprite("CardRamm", "Cards/card_ramm.png", package);

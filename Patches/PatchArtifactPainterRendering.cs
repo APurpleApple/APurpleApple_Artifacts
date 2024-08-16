@@ -16,7 +16,7 @@ namespace APurpleApple.GenericArtifacts.HarmonyPatches
     internal class PatchArtifactPainterRendering
     {
         public static readonly string[] stains = { "CardOverPaintStainA", "CardOverPaintStainB", "CardOverPaintStainC" };
-        [HarmonyPatch(typeof(Artifact)), HarmonyPatch("Render"), HarmonyPostfix]
+        [HarmonyPatch(typeof(Artifact), nameof(Artifact.Render)), HarmonyPostfix]
         public static void RenderTicks(G g, Vec restingPosition, bool showAsUnknown, bool autoFocus, bool showCount, Artifact __instance)
         {
             if (__instance is ArtifactPainter artifactPainter)
@@ -32,31 +32,12 @@ namespace APurpleApple.GenericArtifacts.HarmonyPatches
             }
         }
 
-        [HarmonyPatch(typeof(Card)), HarmonyPatch("GetActionsOverridden"), HarmonyPostfix]
-        public static void AddPaintedActions(ref List<CardAction> __result, Card __instance, State s)
-        {
-            if (__instance.GetMeta().deck == Deck.colorless)
-            {
-                foreach (Artifact artifact in s.artifacts)
-                {
-                    if (artifact is ArtifactPainter artifactPainter)
-                    {
-                        if (artifactPainter.colors.Count > 0)
-                        {
-                            foreach (Deck deck in artifactPainter.colors)
-                            {
-                                __result.Add(artifactPainter.GetColorAction(s, deck));
-                            }
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-
-        [HarmonyPatch(typeof(Card)), HarmonyPatch("Render"), HarmonyPostfix]
+        
+        [HarmonyPatch(typeof(Card), nameof(Card.Render)), HarmonyPostfix]
         public static void RenderPaint(G g, Vec? posOverride, State? fakeState, double? overrideWidth, Card __instance)
         {
+            if (g.state.route is not Combat) return;
+
             if (__instance.GetMeta().deck == Deck.colorless)
             {
                 State state = fakeState ?? g.state;
