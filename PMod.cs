@@ -29,6 +29,11 @@ public sealed class PMod : SimpleMod
     public static Dictionary<string, IShipEntry> ships = new();
     public static Dictionary<string, IDeckEntry> decks = new();
 
+    internal readonly Settings Settings;
+    private IWritableFileInfo SettingsFile
+        => this.Helper.Storage.GetMainStorageFile("json");
+
+
     public static BlendState multiplyBlend = new BlendState()
     {
         ColorBlendFunction = BlendFunction.Add,
@@ -73,6 +78,7 @@ public sealed class PMod : SimpleMod
     public PMod(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
     {
         Instance = this;
+        this.Settings = helper.Storage.LoadJson<Settings>(this.SettingsFile);
 
         Patch();
 
@@ -109,6 +115,7 @@ public sealed class PMod : SimpleMod
         RegisterSprite("StatusPaint", "Icons/status_paint.png", package);
         RegisterSprite("ActionRamm", "Icons/hurtenemyicon.png", package);
 
+        RegisterSprite("SettingsDisabled", "Icons/settings_disabled.png", package);
 
         decks.Add("Ramm",Helper.Content.Decks.RegisterDeck("Ramm", new DeckConfiguration() { BorderSprite = sprites["BorderRamm"].Sprite, DefaultCardArt = SSpr.cards_Trash, Definition = new DeckDef() {color = Colors.white } }));
 
@@ -126,6 +133,21 @@ public sealed class PMod : SimpleMod
                     AccessTools.DeclaredMethod(artifactType, nameof(IModArtifact.AfterDBInit))?.Invoke(null, [helper]);
             }
         };
+
+        helper.ModRegistry.AwaitApi<IModSettingsApi>(
+            "Nickel.ModSettings",
+            api => api.RegisterModSettings(
+                api.MakeList([
+                    api.MakeProfileSelector(
+                                () => package.Manifest.DisplayName ?? package.Manifest.UniqueName,
+                                this.Settings.ProfileBased
+                            ),
+                            ArtifactBlacklist.MakeSettings(api),
+                ]).SubscribeToOnMenuClose(
+                    _ => helper.Storage.SaveJson(this.SettingsFile, this.Settings)
+                )
+            )
+        );
     }
 
 }

@@ -2,7 +2,7 @@
   "artifact": {
     "GlassEngine": {
       "name": "GLASS ENGINE",
-      "description": "At the start of the turn, gain 1 <c=status>EVADE</c>.\n<c=downside>Breaks if you take hull damage.</c>"
+      "description": "At the start of the turn, gain 1 <c=status>EVADE</c> if you have none.\n<c=downside>Breaks if you take hull damage.</c>"
     },
     "GlassShield": {
       "name": "GLASS SHIELD",

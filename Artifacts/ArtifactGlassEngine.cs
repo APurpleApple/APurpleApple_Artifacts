@@ -34,7 +34,10 @@ namespace APurpleApple.GenericArtifacts
         {
             if (!isBroken)
             {
-                combat.Queue(new AStatus() { targetPlayer = true, status = Status.evade, statusAmount = 1, artifactPulse = this.Key() });
+                if (state.ship.Get(Status.evade) == 0)
+                {
+                    combat.Queue(new AStatus() { targetPlayer = true, status = Status.evade, statusAmount = 1, artifactPulse = this.Key() });
+                }
             }
         }
 
@@ -66,6 +69,57 @@ namespace APurpleApple.GenericArtifacts
             tooltips.Add(new TTGlossary("status.evade",1));
 
             return tooltips;
+        }
+
+        public static void AfterDBInit(IModHelper helper)
+        {
+            DB.story.all["ShopRepairGlassArtifacts_A"] = new StoryNode()
+            {
+                lookup = new HashSet<string>() { "shopRepairGlassArtifacts" },
+                type = NodeType.@event,
+                bg = "BGShop",
+                lines = new List<Instruction>()
+                {
+                    new CustomSay()
+                    {
+                        flipped = true,
+                        who = "nerd",
+                        Text = PMod.Instance.Localizations.Localize(["event", "ShopRepairGlass", "A"]),
+                    },
+                }
+            };
+
+            DB.story.all["ShopRepairGlassArtifacts_B"] = new StoryNode()
+            {
+                lookup = new HashSet<string>() { "shopRepairGlassArtifacts" },
+                type = NodeType.@event,
+                bg = "BGShop",
+                lines = new List<Instruction>()
+                {
+                    new CustomSay()
+                    {
+                        flipped = true,
+                        who = "nerd",
+                        Text = PMod.Instance.Localizations.Localize(["event", "ShopRepairGlass", "B"]),
+                    },
+                }
+            };
+
+            DB.story.all["ShopRepairGlassArtifacts_C"] = new StoryNode()
+            {
+                lookup = new HashSet<string>() { "shopRepairGlassArtifacts" },
+                type = NodeType.@event,
+                bg = "BGShop",
+                lines = new List<Instruction>()
+                {
+                    new CustomSay()
+                    {
+                        flipped = true,
+                        who = "nerd",
+                        Text = PMod.Instance.Localizations.Localize(["event", "ShopRepairGlass", "C"]),
+                    },
+                }
+            };
         }
     }
 }

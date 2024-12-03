@@ -12,15 +12,15 @@ namespace APurpleApple.GenericArtifacts.HarmonyPatches
     public static class PatchArtifactPrism
     {
         [HarmonyPatch(typeof(CardReward), nameof(CardReward.GetOffering)), HarmonyPostfix]
-        public static void AddReward(State __0,Deck? __2,BattleType __3,bool? __5, bool __7,bool __9, ref List<Card> __result)
+        public static void AddReward(State s, int count, Deck? limitDeck, BattleType battleType, bool? overrideUpgradeChances, bool makeAllCardsTemporary, bool inCombat, ref List<Card> __result)
         {
-            if (__2.HasValue || __7 || __9 || !__0.EnumerateAllArtifacts().Any((a) => a is ArtifactPrism)) return;
+            if (limitDeck.HasValue || makeAllCardsTemporary || inCombat || !s.EnumerateAllArtifacts().Any((a) => a is ArtifactPrism)) return;
 
 
-            List<Deck> list = __0.storyVars.GetUnlockedChars().Where((d) => !__0.characters.Any((Character ch) => ch.deckType == d)).ToList();
+            List<Deck> list = s.storyVars.GetUnlockedChars().Where((d) => !s.characters.Any((Character ch) => ch.deckType == d)).ToList();
 
-            Deck foundCharacter = list.Random(__0.rngCardOfferings);
-            Rarity rarity = CardReward.GetRandomRarity(__0.rngCardOfferings, __3);
+            Deck foundCharacter = list.Random(s.rngCardOfferings);
+            Rarity rarity = CardReward.GetRandomRarity(s.rngCardOfferings, battleType);
 
             List<Card> validCards = DB.releasedCards.Where(delegate (Card c)
             {
@@ -46,12 +46,12 @@ namespace APurpleApple.GenericArtifacts.HarmonyPatches
             }).ToList();
             if (validCards.Count() != 0)
             {
-                Card? card = Activator.CreateInstance(validCards.Random(__0.rngCardOfferings).GetType()) as Card;
+                Card? card = Activator.CreateInstance(validCards.Random(s.rngCardOfferings).GetType()) as Card;
 
                 if (card != null)
                 {
                     card.drawAnim = 1.0;
-                    card.upgrade = CardReward.GetUpgrade(__0.rngCardOfferings, __0.map, card, (__0.GetDifficulty() >= 1) ? 0.5 : 1.0, __5);
+                    card.upgrade = CardReward.GetUpgrade(s, s.rngCardOfferings, s.map, card, (s.GetDifficulty() >= 1) ? 0.5 : 1.0, overrideUpgradeChances);
                     card.flipAnim = 1.0;
                     __result.RemoveAt(__result.Count - 1);
                     __result.Add(card);
