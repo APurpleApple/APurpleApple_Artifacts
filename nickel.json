@@ -1,7 +1,7 @@
 {
   "UniqueName": "APurpleApple.GenericArtifacts",
   "DisplayName": "APurpleApple's Generic Artifacts",
-  "Version": "1.0.6",
+  "Version": "1.0.7",
   "RequiredApiVersion": "0.1.0",
   "EntryPointAssembly": "APurpleApple_Artifacts.dll",
 
