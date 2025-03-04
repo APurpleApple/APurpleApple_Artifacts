@@ -16,7 +16,6 @@ namespace APurpleApple.GenericArtifacts.Patches
         public static void AfterAttackTryBouncePatch(AAttack __instance, State s, Combat c, G g)
         {
             if (__instance.piercing) { return; }
-            if (s.artifacts.OfType<ArtifactPingPong>().FirstOrDefault() is not { } artifact) { return; }
 
             Ship ship = (__instance.targetPlayer ? s.ship : c.otherShip);
             Ship ship2 = (__instance.targetPlayer ? c.otherShip : s.ship);
@@ -35,6 +34,7 @@ namespace APurpleApple.GenericArtifacts.Patches
             if (partAtWorldX == null) { return; }
 
             if (partAtWorldX.GetDamageModifier() != PDamMod.armor) { return; }
+            if (s.artifacts.OfType<ArtifactPingPong>().FirstOrDefault() is not { } artifact) { return; }
 
             ABounceAttack attack = new ABounceAttack()
             {
