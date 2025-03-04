@@ -10,7 +10,7 @@ namespace APurpleApple.GenericArtifacts
     internal sealed class ProfileSettings
     {
         [JsonProperty]
-        public HashSet<Type> BlacklistedArtifacts = [];
+        public HashSet<string> BlacklistedArtifacts = [];
     }
 
     internal static class ArtifactBlacklist
@@ -20,15 +20,15 @@ namespace APurpleApple.GenericArtifacts
         {
             Title = () => "Offered Artifacts",
             AllArtifacts = () => PMod.Registered_Artifact_Types.ToList(),
-            IsEnabled = artType => !PMod.Instance.Settings.ProfileBased.Current.BlacklistedArtifacts.Contains(artType),
+            IsEnabled = artType => !PMod.Instance.Settings.ProfileBased.Current.BlacklistedArtifacts.Contains(artType.Name),
             SetEnabled = (route, artType, value) =>
             {
-                var oldValue = !PMod.Instance.Settings.ProfileBased.Current.BlacklistedArtifacts.Contains(artType);
+                var oldValue = !PMod.Instance.Settings.ProfileBased.Current.BlacklistedArtifacts.Contains(artType.Name);
 
                 if (value)
-                    PMod.Instance.Settings.ProfileBased.Current.BlacklistedArtifacts.Remove(artType);
+                    PMod.Instance.Settings.ProfileBased.Current.BlacklistedArtifacts.Remove(artType.Name);
                 else
-                    PMod.Instance.Settings.ProfileBased.Current.BlacklistedArtifacts.Add(artType);
+                    PMod.Instance.Settings.ProfileBased.Current.BlacklistedArtifacts.Add(artType.Name);
             }
         };
 
