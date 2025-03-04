@@ -15,7 +15,7 @@ namespace APurpleApple.GenericArtifacts.Patches
         [HarmonyPatch(typeof(AAttack), nameof(AAttack.Begin)), HarmonyPrefix]
         public static void AfterAttackTryBouncePatch(AAttack __instance, State s, Combat c, G g)
         {
-            if (!s.artifacts.Any(a => a is ArtifactPingPong)) { return; }
+            if (__instance.piercing) { return; }
 
             Ship ship = (__instance.targetPlayer ? s.ship : c.otherShip);
             Ship ship2 = (__instance.targetPlayer ? c.otherShip : s.ship);
@@ -34,6 +34,7 @@ namespace APurpleApple.GenericArtifacts.Patches
             if (partAtWorldX == null) { return; }
 
             if (partAtWorldX.GetDamageModifier() != PDamMod.armor) { return; }
+            if (s.artifacts.OfType<ArtifactPingPong>().FirstOrDefault() is not { } artifact) { return; }
 
             ABounceAttack attack = new ABounceAttack()
             {
@@ -50,6 +51,7 @@ namespace APurpleApple.GenericArtifacts.Patches
                 weaken = __instance.weaken,
                 moveEnemy = __instance.moveEnemy,
                 paybackCounter = __instance.paybackCounter,
+                artifactPulse = artifact.Key(),
             };
             c.QueueImmediate(attack);
         }
