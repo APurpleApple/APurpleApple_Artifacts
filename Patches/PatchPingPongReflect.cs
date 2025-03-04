@@ -15,6 +15,7 @@ namespace APurpleApple.GenericArtifacts.Patches
         [HarmonyPatch(typeof(AAttack), nameof(AAttack.Begin)), HarmonyPrefix]
         public static void AfterAttackTryBouncePatch(AAttack __instance, State s, Combat c, G g)
         {
+            if (__instance.piercing) { return; }
             if (s.artifacts.OfType<ArtifactPingPong>().FirstOrDefault() is not { } artifact) { return; }
 
             Ship ship = (__instance.targetPlayer ? s.ship : c.otherShip);
